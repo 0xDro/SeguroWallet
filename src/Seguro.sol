@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {OpsReady} from "contracts/dependencies/OpsReady.sol";
-import "contracts/dependencies/GnosisSafeMath.sol";
-import "contracts/dependencies/ILayerZeroEndpoint.sol";
-import "contracts/dependencies/ILayerZeroReceiver.sol";
-import "./ownable.sol";
-import "./SigVerify.sol";
-import "@openzeppelin/contracts/interfaces/IERC20.sol";
-import "contracts/dependencies/IStargateRouter.sol";
-import "contracts/dependencies/IResolver.sol";
+import {OpsReady} from "lib/ops/contracts/vendor/gelato/OpsReady.sol";
+import "lib/safe-contracts/contracts/external/GnosisSafeMath.sol";
+import "lib/LayerZero/contracts/interfaces/ILayerZeroEndpoint.sol";
+import "lib/LayerZero/contracts/interfaces/ILayerZeroReceiver.sol";
+import "./owners.sol";
+import "./SigVerifier.sol";
+import "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "lib/stargate/contracts/interfaces/IStargateRouter.sol";
+import "lib/ops/contracts/interfaces/IResolver.sol";
 
 interface IOps {
     function createTaskNoPrepayment(address _execAddress, bytes4 _execSelector, address _resolverAddress, bytes calldata _resolverData, address _feeToken) external returns (bytes32 task);

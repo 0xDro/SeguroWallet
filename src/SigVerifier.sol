@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "contracts/dependencies/ISignatureValidator.sol";
-import "contracts/dependencies/SignatureDecoder.sol";
-import "contracts/dependencies/GnosisSafeMath.sol";
-import "./ownable.sol";
+import "lib/safe-contracts/contracts/interfaces/ISignatureValidator.sol";
+import "lib/safe-contracts/contracts/common/SignatureDecoder.sol";
+import "lib/safe-contracts/contracts/external/GnosisSafeMath.sol";
+import "./owners.sol";
 
 contract Validation is SignatureDecoder, ISignatureValidatorConstants, Owner{
 

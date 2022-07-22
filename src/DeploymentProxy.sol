@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "./mainWallet.sol";
-import "./dependencies/ILayerZeroReceiver.sol";
+import "./Seguro.sol";
+import "lib/LayerZero/contracts/interfaces/ILayerZeroReceiver.sol";
+
 
 contract DeploymentFactory is ILayerZeroReceiver {
 
