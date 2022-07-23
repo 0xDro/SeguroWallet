@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "lib/forge-std/Script.sol";
+import "forge-std/Script.sol";
 import "src/DeploymentProxy.sol";
 
 contract TestDeployment is Script {
@@ -19,7 +19,7 @@ contract TestDeployment is Script {
 
     function run() public {
        vm.startBroadcast();
-       factory = new DeploymentFactory(endpointRinkeby);
+       factory = new DeploymentFactory(endpointArbitrum);
        vm.stopBroadcast();
 
 

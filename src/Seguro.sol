@@ -135,8 +135,8 @@ contract ScWallet is  Validation, ILayerZeroReceiver, OpsReady, IResolver{
 
         lastAmount = usdc.balanceOf(address(this));
 
-        (uint fee, address feeToken) = IOps(ops).getFeeDetails();
-        _transfer(fee,feeToken);
+        (uint fee2, address feeToken) = IOps(ops).getFeeDetails();
+        _transfer(fee2,feeToken);
 
 
     }
