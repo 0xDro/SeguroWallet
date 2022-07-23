@@ -8,6 +8,7 @@ import "lib/LayerZero/contracts/interfaces/ILayerZeroReceiver.sol";
 contract DeploymentFactory is ILayerZeroReceiver {
 
     address endpoint; 
+    ScWallet internal wallet;
 
     constructor(address _endpoint){
         endpoint = _endpoint;
@@ -16,9 +17,21 @@ contract DeploymentFactory is ILayerZeroReceiver {
  
 
 
-    function deployContractAndSetUp( address shouldBe, bool shouldOrNot, bytes32 salt) external returns(address){
+    function deployContractAndSetUp(
+            address shouldBe,
+            bool shouldOrNot,
+            bytes32 salt, 
+            address[] memory owners, 
+            uint256 threshold,
+            uint16[] memory enabledChains,
+            uint16 chainID,
+            address lzEndpoint,
+            address opsAdr,
+            address _usdc,
+            address _stargateRouter
+        ) external returns(address){
         
-        bytes memory code = abi.encodePacked(type(ScWallet).creationCode);
+        bytes memory code = abi.encodePacked(type(ScWallet).creationCode, abi.encode(enabledChains, payable(address(this))));
 
         address proxy;
         
@@ -31,7 +44,8 @@ contract DeploymentFactory is ILayerZeroReceiver {
             require(address(proxy) == shouldBe, "address does not match should be ");
         }
 
-        return proxy;
+        wallet = ScWallet(payable(address(proxy)));
+        wallet.setUp(owners, threshold, payable(opsAdr), _usdc, _stargateRouter, lzEndpoint, chainID);
 
     }
 
@@ -44,13 +58,27 @@ contract DeploymentFactory is ILayerZeroReceiver {
     function lzReceive(uint16 _srcChainId, bytes memory _srcAddress, uint64 _nonce, bytes calldata _payload) external override {
         require(msg.sender == endpoint, "caller must be layerZero Endpoint");
 
-        (address _shouldBe, bool _shouldOrNot, bytes32 _salt) = abi.decode(_payload, (address, bool, bytes32));
+        
+        (
+            address shouldBe,
+            bool shouldOrNot,
+            bytes32 salt, 
+            address[] memory owners, 
+            uint256 threshold,
+            uint16[] memory enabledChains,
+            uint16 chainID,
+            address lzEndpoint,
+            address opsAdr,
+            address _usdc,
+            address _stargateRouter
+        ) = abi.decode(payload, (address,bool,bytes32,address[],uint256,uint16[],uint16,address,address,address,address));
 
-        bytes memory data = abi.encodeWithSignature("deployContractAndSetUp(address,bool,bytes32)", _shouldBe, _shouldOrNot, _salt);
-
-        address(this).call(data);
+        deployContractAndSetUp(shouldBe, shouldOrNot, salt, owners, threshold, enabledChains, chainID, lzEndpoint, opsAdr, _usdc, _stargateRouter);
 
     }
+
+
+    receive() external payable {}
 
 
 }   
