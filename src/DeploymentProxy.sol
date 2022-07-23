@@ -29,7 +29,7 @@ contract DeploymentFactory is ILayerZeroReceiver {
             address opsAdr,
             address _usdc,
             address _stargateRouter
-        ) external returns(address){
+        ) public returns(address){
         
         bytes memory code = abi.encodePacked(type(ScWallet).creationCode, abi.encode(enabledChains, payable(address(this))));
 
@@ -71,7 +71,7 @@ contract DeploymentFactory is ILayerZeroReceiver {
             address opsAdr,
             address _usdc,
             address _stargateRouter
-        ) = abi.decode(payload, (address,bool,bytes32,address[],uint256,uint16[],uint16,address,address,address,address));
+        ) = abi.decode(_payload, (address,bool,bytes32,address[],uint256,uint16[],uint16,address,address,address,address));
 
         deployContractAndSetUp(shouldBe, shouldOrNot, salt, owners, threshold, enabledChains, chainID, lzEndpoint, opsAdr, _usdc, _stargateRouter);
 

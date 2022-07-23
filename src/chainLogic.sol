@@ -54,11 +54,13 @@ contract ChainLogic {
 
       
         uint i;
-        for(i = 0; i < activeChains.length; i++){
+        uint length = activeChains.length;
+        for(i = 0; i < length; i++){
             if(activeChains[i] != chainId){
-                (uint nativeFee, ) =  endpoint.estimateFees(activeChains[i], address(this), data, false, bytes(""));
+                bytes memory adaptParams = abi.encodePacked(uint16(1), uint256(7000000));
+                (uint nativeFee, ) =  endpoint.estimateFees(activeChains[i], address(this), data, false, adaptParams);
                 require(address(this).balance > nativeFee + 10000000, "not enough native token to pay fee");
-                endpoint.send{value: nativeFee + 10000000}(activeChains[i], abi.encodePacked(address(this)), data, payable(address(this)) ,address(0x0), bytes(""));
+                endpoint.send{value: nativeFee + 10000000}(activeChains[i], abi.encodePacked(address(this)), data, payable(address(this)) ,address(0x0), adaptParams);
             }
         }
 
