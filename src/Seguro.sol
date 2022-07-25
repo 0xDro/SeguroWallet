@@ -99,6 +99,9 @@ contract ScWallet is  Validation, ILayerZeroReceiver, OpsReady, IResolver{
         require(length == respectiveChain.length && length == portion.length);
         require(length < 4, "limited to 4 recipeints");
         uint8 j;
+        
+        //TO-DO: require total summed portions < 100
+
         for(j = 0; j < length; j++){
             require(_recipeints[j] != address(0), "invalid recipeint");
             recipeints.push(_recipeints[j]);

@@ -7,7 +7,7 @@ import "src/DeploymentProxy.sol";
 contract SeguroDeployer is Script {
 
     //CHANGE FACTORY ADDRESS
-    DeploymentFactory internal factory = DeploymentFactory(payable(address(0x5a0Fb2d4ABb7B1992A9213D573AbCF9AB7007872)));
+    DeploymentFactory internal factory = DeploymentFactory(payable(address(0x0061F44fa7Fa8aDe70BA7DC69528BB445607A2F2)));
 
     address endpointRinkeby = 0x79a63d6d8BBD5c6dfc774dA79bCcD948EAcb53FA;
     address endpointMumbai = 0xf69186dfBa60DdB133E91E9A4B5673624293d8F8;
@@ -36,11 +36,13 @@ contract SeguroDeployer is Script {
     }
 
     function run() public {
-        address shouldBe = 0x880C1AF07D87C05f66f2365F463563843B0338e1;
+
+        //CHANGE CONFIG
+        address shouldBe = 0xFA874F6f50B5198ff927c9865E01E1a984f18859;
         bool shouldOrNot = true;
-        bytes32 salt = keccak256("NEWPC");
+        bytes32 salt = keccak256("NEWPC3");
         uint256 threshold = 2;
-        uint16 chainId = 10010;
+        uint16 chainId = 10011;
         address lzEndpoint = endpointOptimism;
         address opsAdr = opsOptimism;
         address usdc = usdcOptimism;
@@ -52,7 +54,7 @@ contract SeguroDeployer is Script {
 
         uint16[] memory enabledChains = new uint16[](2);
         enabledChains[0] = 10001;
-        enabledChains[1] = 10010;
+        enabledChains[1] = 10011;
 
 
 

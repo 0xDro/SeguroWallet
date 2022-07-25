@@ -19,7 +19,7 @@ contract TestDeployment is Script {
 
     function run() public {
        vm.startBroadcast();
-       factory = new DeploymentFactory(endpointMumbai);
+       factory = new DeploymentFactory(endpointOptimism);
        vm.stopBroadcast();
 
 

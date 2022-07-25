@@ -6,7 +6,7 @@ import "src/Seguro.sol";
 
 contract addOwner is Script {
 
-    ScWallet internal seguro = ScWallet(payable(address(0x880C1AF07D87C05f66f2365F463563843B0338e1)));
+    ScWallet internal seguro = ScWallet(payable(address(0xFA874F6f50B5198ff927c9865E01E1a984f18859)));
 
     
     function setUp() public {
@@ -29,7 +29,9 @@ contract addOwner is Script {
 
         bytes memory sig = abi.encodePacked(r,s,v);
         bytes memory sig1 = abi.encodePacked(r1,s1,v1);
-
+        
+        vm.startBroadcast();
         seguro.executeTx(payable(address(seguro)), 0, data, 3000000, abi.encodePacked(sig1,sig));
+        vm.stopBroadcast();
     }      
 }
