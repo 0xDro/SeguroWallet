@@ -5,6 +5,7 @@ import "./Seguro.sol";
 import "lib/LayerZero/contracts/interfaces/ILayerZeroReceiver.sol";
 
 
+
 contract DeploymentFactory is ILayerZeroReceiver {
 
     address endpoint; 
@@ -47,6 +48,8 @@ contract DeploymentFactory is ILayerZeroReceiver {
         wallet = ScWallet(payable(address(proxy)));
         wallet.setUp(owners, threshold, payable(opsAdr), _usdc, _stargateRouter, lzEndpoint, chainID);
 
+        return proxy;
+
     }
 
     function computeDeploymentAddress(bytes32 salt) external view returns(address){
@@ -77,8 +80,14 @@ contract DeploymentFactory is ILayerZeroReceiver {
 
     }
 
-
     receive() external payable {}
+}
 
 
-}   
+
+
+
+
+
+
+  

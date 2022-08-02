@@ -18,9 +18,9 @@ contract GelatoInit is Script {
         uint16[] memory Ids = new uint16[](2);
         Ids[0] = 10011;
         Ids[1] = 10001;
-        uint256[] memory portion = new uint256[](2);
-        portion[0] = 50;
-        portion[1] = 25;
+        uint256[] memory portions = new uint256[](2);
+        portions[0] = 50;
+        portions[1] = 25;
 
         bool shouldProp = true;
 
