@@ -38,14 +38,15 @@ contract TransactionBatcher {
 
             if(i == 0){
                 deployedAdr = IDeploymentProxy(deploymentProxy).deployContractAndSetUp(address(0x0), false, salt, owners, threshold, dstChainID, dstChainID[i], endpoints[i], _ops[i], _usdc[i], _stargateRouter[i]);
+            } else {
+                bytes memory data = abi.encode(deployedAdr, true, salt, owners, threshold, dstChainID, dstChainID[i],endpoints[i], _ops[i], _usdc[i], _stargateRouter[i]);
+                bytes memory adaptParams = abi.encodePacked(uint16(1), uint256(8000000));
+                (uint fee, ) = endpoint.estimateFees(dstChainID[i],deploymentProxy, data, false, adaptParams);
+                require(msg.value > fee + 100000, "insufficient funds");
+                endpoint.send{value: fee + 100000}(dstChainID[i], abi.encodePacked(deploymentProxy), data, payable(address(msg.sender)), address(0x0), adaptParams);
             }
         
-            bytes memory data = abi.encode(deployedAdr, true, salt, owners, threshold, dstChainID, dstChainID[i],endpoints[i], _ops[i], _usdc[i], _stargateRouter[i]);
-            bytes memory adaptParams = abi.encodePacked(uint16(1), uint256(8000000));
-            (uint fee, ) = endpoint.estimateFees(dstChainID[i],deploymentProxy, data, false, adaptParams);
-            require(msg.value > fee + 100000, "insufficient funds");
-            endpoint.send{value: fee + 100000}(dstChainID[i], abi.encodePacked(deploymentProxy), data, payable(address(msg.sender)), address(0x0), adaptParams);
-
+    
             
         }
         

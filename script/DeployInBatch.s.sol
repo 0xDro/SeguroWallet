@@ -7,7 +7,7 @@ import "src/transactionBatcher.sol";
 
 contract DeployInBatch is Script{
 
-    TransactionBatcher batcher = TransactionBatcher(0x565b10E773158ED4466C1Cf7644d819A74b55127);
+    TransactionBatcher batcher = TransactionBatcher(0x2D2637e91855C5F075f8c22804b6aD6212037299);
 
 
   address endpointRinkeby = 0x79a63d6d8BBD5c6dfc774dA79bCcD948EAcb53FA;
@@ -38,7 +38,7 @@ contract DeployInBatch is Script{
 
     function run() public payable {
 
-        bytes32 salt = keccak256("LayerZero");
+        bytes32 salt = keccak256("LayerZerofdfrafdadartdaeasdf");
         uint256 threshold = 2;
 
 
@@ -46,25 +46,25 @@ contract DeployInBatch is Script{
         owners[0] = 0x5DA1258F4FfD096750adB6340E8334ecb8A78108;
         owners[1] = 0x026E61d6F6d828fCA74FC48588f0FaC75b8f428e;
 
-        uint16[] memory enabledChains = new uint16[](2);
+        uint16[] memory enabledChains = new uint16[](1);
         enabledChains[0] = 10001;
-        enabledChains[1] = 10011;
+        //enabledChains[1] = 10011;
 
-        address[] memory endpoints = new address[](2);
+        address[] memory endpoints = new address[](1);
         endpoints[0] = endpointRinkeby;
-        endpoints[1] = endpointOptimism;
+        //endpoints[1] = endpointOptimism;
         
-        address[] memory _ops = new address[](2);
+        address[] memory _ops = new address[](1);
         _ops[0] = opsRinkeby;
-        _ops[1] = opsOptimism;
+        //_ops[1] = opsOptimism;
 
-        address[] memory _usdc = new address[](2);
+        address[] memory _usdc = new address[](1);
         _usdc[0] = usdcRinkeby;
-        _usdc[1] = usdcOptimism;
+        //_usdc[1] = usdcOptimism;
 
-        address[] memory _stargateRouter = new address[](2);
+        address[] memory _stargateRouter = new address[](1);
         _stargateRouter[0] = stargateRinkeby;
-        _stargateRouter[1] = stargateOptimism;
+       // _stargateRouter[1] = stargateOptimism;
 
 
         

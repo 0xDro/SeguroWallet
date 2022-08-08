@@ -16,10 +16,28 @@ contract BatchDeployer is Script{
     address endpointFuji = 0x93f54D755A063cE7bB9e6Ac47Eccc8e33411d706;
     address endpointFantom = 0x7dcAD72640F835B0FA36EFD3D6d3ec902C7E5acf;
 
-    address proxy = 0x31bf6CF5434B4155c58eCF651b293aF513CA62B5;
+    address proxy = 0xbB974A944B196444eEFD5a52ea71e35A57059459;
 
 
-    
+        /*
+    rinkeby = vm.createFork(
+            "https://eth-rinkeby.alchemyapi.io/v2/imV5d8CKQjE26zjVYlFnDx2IsgIaJIen"
+        );
+        mumbai = vm.createFork(
+
+            "https://polygon-mumbai.g.alchemy.com/v2/NfoEgCLeIBcOFtHYrrU1cx-sHNHVbgdD"
+        );
+        optimism = vm.createFork(
+            "https://opt-kovan.g.alchemy.com/v2/PEWWIsHZ_dNvgBsdIg3j7K4-LUQSAHAT"
+        );
+        arbitrum = vm.createFork(
+            "https://arb-rinkeby.g.alchemy.com/v2/00xJvEFKaEp3_d-uokM5uKGPGiroo4XN"
+        );
+        binance = vm.createFork("https://bsctestapi.terminet.io/rpc");
+        fuji = vm.createFork("https://rpc.ankr.com/avalanche_fuji");
+        fantom = vm.createFork("https://rpc.testnet.fantom.network");
+
+    */
     function setUp() public {}
 
 
