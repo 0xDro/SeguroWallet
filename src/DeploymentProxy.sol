@@ -52,8 +52,9 @@ contract DeploymentFactory is ILayerZeroReceiver {
 
     }
 
-    function computeDeploymentAddress(bytes32 salt) external view returns(address){
-        bytes32 data =  keccak256(abi.encodePacked(bytes1(0xFF), address(this), salt, keccak256(type(ScWallet).creationCode)));
+    function computeDeploymentAddress(bytes32 salt, uint16[] memory enabledChains) external view returns(address){
+        bytes32 data =  keccak256(abi.encodePacked(bytes1(0xFF), address(this), salt, keccak256(abi.encodePacked(type(ScWallet).creationCode, abi.encode(enabledChains, payable(address(this)))))));
+
         return address(uint160(uint256(data)));  
     
     }

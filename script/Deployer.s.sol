@@ -7,7 +7,7 @@ import "src/DeploymentProxy.sol";
 contract SeguroDeployer is Script {
 
     //CHANGE FACTORY ADDRESS
-    DeploymentFactory internal factory = DeploymentFactory(payable(address(0x0061F44fa7Fa8aDe70BA7DC69528BB445607A2F2)));
+    DeploymentFactory internal factory = DeploymentFactory(payable(address(0x5A70fc040bF9f994AccD91bB3bAdDaC811891Fb9)));
 
     address endpointRinkeby = 0x79a63d6d8BBD5c6dfc774dA79bCcD948EAcb53FA;
     address endpointMumbai = 0xf69186dfBa60DdB133E91E9A4B5673624293d8F8;
@@ -28,6 +28,17 @@ contract SeguroDeployer is Script {
     address opsMumbai = 0xB3f5503f93d5Ef84b06993a1975B9D21B962892F;
     address opsOptimism = 0xB3f5503f93d5Ef84b06993a1975B9D21B962892F;
 
+  
+        bytes32 salt = keccak256("ExploitTesterThree");
+        //CHANGE CONFIG
+      
+        bool shouldOrNot = true;
+        uint256 threshold = 2;
+        uint16 chainId = 10001;
+        address lzEndpoint = endpointRinkeby;
+        address opsAdr = opsRinkeby;
+        address usdc = usdcRinkeby;
+        address stargate = stargateRinkeby;
 
 
     
@@ -37,16 +48,6 @@ contract SeguroDeployer is Script {
 
     function run() public {
 
-        //CHANGE CONFIG
-        address shouldBe = 0xFA874F6f50B5198ff927c9865E01E1a984f18859;
-        bool shouldOrNot = true;
-        bytes32 salt = keccak256("NEWPC3");
-        uint256 threshold = 2;
-        uint16 chainId = 10011;
-        address lzEndpoint = endpointOptimism;
-        address opsAdr = opsOptimism;
-        address usdc = usdcOptimism;
-        address stargate = stargateOptimism;
 
         address[] memory owners = new address[](2);
         owners[0] = 0x5DA1258F4FfD096750adB6340E8334ecb8A78108;
@@ -55,11 +56,13 @@ contract SeguroDeployer is Script {
         uint16[] memory enabledChains = new uint16[](2);
         enabledChains[0] = 10001;
         enabledChains[1] = 10011;
-
-
+        address shouldBe = factory.computeDeploymentAddress(salt, enabledChains);
+       
+        console.log(shouldBe);
 
 
         vm.startBroadcast();
+        
         address wallet = factory.deployContractAndSetUp(
             shouldBe,
             shouldOrNot,
